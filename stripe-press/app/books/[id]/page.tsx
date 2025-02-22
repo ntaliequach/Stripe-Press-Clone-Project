@@ -1,8 +1,10 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect } from "react"
-import { motion, useScroll } from "framer-motion"
+import { motion } from "framer-motion";
+import { notFound } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import type React from "react";
 
 const books = [
   {
@@ -101,37 +103,34 @@ const books = [
     color: "#6B4423",
     image: "/images/image16.png",
   },
-]
+];
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const [selectedBook, setSelectedBook] = useState<number | null>(null)
-  const [hoveredBook, setHoveredBook] = useState<number | null>(null)
-  const { scrollY } = useScroll()
-  const [isMobile, setIsMobile] = useState(false)
+export default function BookPage({ params }: { params: { id: string } }) {
+  const router = useRouter();
+  const bookIndex = parseInt(params.id, 10);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+  if (isNaN(bookIndex) || bookIndex < 0 || bookIndex >= books.length) {
+    return notFound();
+  }
 
-  // Removed the `navOpacity` transform so the nav stays fully visible
-  // const navOpacity = useTransform(scrollY, [0, 200], [1, 0])
+  const book = books[bookIndex];
+  const [hoveredBook, setHoveredBook] = useState<number | null>(null);
+  const [selectedBook, setSelectedBook] = useState<number | null>(null);
 
   return (
-    <html lang="en">
-      <body className="bg-[#201919] text-white overflow-x-hidden font-times">
+    <body className="bg-[#201919] text-white overflow-x-hidden font-times">
+      <div className="max-w-4xl mx-auto p-6">
+        {/* Back Button */}
+        <button
+          className="text-lg text-gray-400 hover:text-white transition-colors mb-4"
+          onClick={() => router.back()}
+        >
+          &larr; Back
+        </button>
+
         {/* Left Navigation */}
         <motion.nav
-          className="fixed top-0 left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50"
-          // style={{ opacity: isMobile ? 1 : navOpacity }}
+          className="fixed bottom-0 left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50"
           style={{ opacity: 1 }} // Always fully visible
         >
           {/* Logo and Title */}
@@ -185,9 +184,8 @@ export default function RootLayout({
                         : 0.5,
                   }}
                   onClick={() => {
-                    setSelectedBook(index)
-                    const element = document.getElementById(`book-${index}`)
-                    element?.scrollIntoView({ behavior: "smooth" })
+                    setSelectedBook(index);
+                    router.push(`/books/${index}`);
                   }}
                 />
                 {hoveredBook === index && (
@@ -202,47 +200,13 @@ export default function RootLayout({
               </div>
             ))}
           </div>
-
-          {/* Help Button */}
-          <button className="text-lg text-gray-400 hover:text-white transition-colors ml-2">
-            ?
-          </button>
         </motion.nav>
 
-        {/* Main Content */}
-        <main className="ml-0 md:ml-48 min-h-screen mt-36">
-          <div className="w-full max-w-4xl mx-auto px-4 md:px-0 py-8">
-            {books.map((book, index) => (
-              <motion.div
-                id={`book-${index}`}
-                key={index}
-                className="w-full h-40 mb-8 cursor-pointer overflow-hidden bg-cover bg-center"
-                style={{ backgroundImage: `url(${book.image})` }}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.2,
-                }}
-                whileHover={{ scale: 1.02 }}
-                onClick={() => setSelectedBook(index)}
-              >
-                <div className="h-full flex flex-col md:flex-row items-center justify-between p-6 md:px-12 bg-black bg-opacity-50">
-                  <div className="flex-1 text-center md:text-left mb-4 md:mb-0">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                      {book.title}
-                    </h2>
-                    <p className="text-lg md:text-xl opacity-75">
-                      {book.author}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </main>
-      </body>
-    </html>
-  )
+        <h1 className="text-4xl font-bold mb-4">{book.title}</h1>
+        <p className="text-2xl mb-4">{book.author}</p>
+        <div className="w-full h-64 bg-cover bg-center mb-8" style={{ backgroundImage: `url(${book.image})` }}></div>
+        <p className="text-lg">Book details and description go here...</p>
+      </div>
+    </body>
+  );
 }
