@@ -1,10 +1,9 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { notFound } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import type React from "react";
+import { useState, useMemo, useCallback } from "react";
+import { debounce } from "lodash";
 
 const books = [
   {
@@ -12,6 +11,7 @@ const books = [
     author: "Sarah Chen",
     color: "#672B2B",
     image: "/images/image1.png",
+    description: "A book about innovation and creativity.",
   },
   {
     title: "Digital Horizons",
@@ -117,21 +117,94 @@ export default function BookPage({ params }: { params: { id: string } }) {
   const [hoveredBook, setHoveredBook] = useState<number | null>(null);
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
 
+  // Function to handle the back button click
+  const handleBackButtonClick = () => {
+    router.push("/"); // Use router.push to navigate to the homepage
+    router.refresh(); // Force a refresh of the homepage
+  };
+
+  // Debounced hover handlers to reduce state updates
+  const handleMouseEnter = useCallback(
+    debounce((index: number) => {
+      setHoveredBook(index);
+    }, 50),
+    []
+  );
+
+  const handleMouseLeave = useCallback(
+    debounce(() => {
+      setHoveredBook(null);
+    }, 50),
+    []
+  );
+
+  const navigationLines = useMemo(() => {
+    return books.map((book, index) => (
+      <div
+        key={index}
+        className="top-[-13rem] relative flex items-center h-[14px]" //height of the whole bar
+        onMouseEnter={() => handleMouseEnter(index)}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Increase hover area with a larger container */}
+        <div className="relative hover-area"> {/* Adjust padding/margin as needed */}
+          <motion.button
+            className={`h-[3px] transition-all duration-300 ${ //height of the line
+              selectedBook === index || hoveredBook === index
+                ? "bg-white"
+                : "bg-gray-200 group-hover:bg-gray-200"
+            }`}
+            style={{
+              width:
+                hoveredBook !== null
+                  ? hoveredBook === index
+                    ? "5rem"
+                    : `${5 - Math.abs(hoveredBook - index) * 0.25}rem`
+                  : "1.2rem", //width of the line
+              opacity:
+                hoveredBook !== null
+                  ? hoveredBook === index
+                    ? 1
+                    : 0.3 - Math.abs(hoveredBook - index) * 0.02
+                  : 0.5,
+              willChange: "width, opacity", // Hint browser for optimizations
+            }}
+            onClick={() => {
+              setSelectedBook(index);
+              router.push(`/books/${index}`);
+            }}
+          />
+        </div>
+        {hoveredBook === index && (
+          <motion.span
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 15 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="absolute left-24 text-s text-white whitespace-nowrap"
+          >
+            {book.title}
+          </motion.span>
+        )}
+      </div>
+    ));
+  }, [selectedBook, hoveredBook, router, handleMouseEnter, handleMouseLeave]);
+
   return (
     <body className="bg-[#201919] text-white overflow-x-hidden font-times">
       <div className="max-w-4xl mx-auto p-6">
         {/* Back Button */}
         <button
           className="text-lg text-gray-400 hover:text-white transition-colors mb-4"
-          onClick={() => router.back()}
+          onClick={handleBackButtonClick}
         >
           &larr; Back
         </button>
 
         {/* Left Navigation */}
         <motion.nav
-          className="fixed bottom-0 left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50"
-          style={{ opacity: 1 }} // Always fully visible
+          className="fixed left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50"
+          style={{ bottom: 0.3, opacity: 1 }} // Always fully visible
         >
           {/* Logo and Title */}
           <div className="flex items-center space-x-3">
@@ -155,50 +228,8 @@ export default function BookPage({ params }: { params: { id: string } }) {
           </div>
 
           {/* Navigation Lines */}
-          <div className="flex flex-col space-y-2.5 ml-2 group relative mt-6">
-            {books.map((book, index) => (
-              <div
-                key={index}
-                className="relative flex items-center"
-                onMouseEnter={() => setHoveredBook(index)}
-                onMouseLeave={() => setHoveredBook(null)}
-              >
-                <motion.button
-                  className={`h-[5px] transition-all duration-300 ${
-                    selectedBook === index || hoveredBook === index
-                      ? "bg-white"
-                      : "bg-gray-200 group-hover:bg-gray-700"
-                  }`}
-                  style={{
-                    width:
-                      hoveredBook !== null
-                        ? hoveredBook === index
-                          ? "5rem"
-                          : `${5 - Math.abs(hoveredBook - index) * 0.25}rem`
-                        : "4rem",
-                    opacity:
-                      hoveredBook !== null
-                        ? hoveredBook === index
-                          ? 1
-                          : 0.3 - Math.abs(hoveredBook - index) * 0.02
-                        : 0.5,
-                  }}
-                  onClick={() => {
-                    setSelectedBook(index);
-                    router.push(`/books/${index}`);
-                  }}
-                />
-                {hoveredBook === index && (
-                  <motion.span
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 15 }}
-                    className="absolute left-24 text-s text-white whitespace-nowrap"
-                  >
-                    {book.title}
-                  </motion.span>
-                )}
-              </div>
-            ))}
+          <div className="flex flex-col ml-2 group relative mt-6">
+            {navigationLines}
           </div>
         </motion.nav>
 
