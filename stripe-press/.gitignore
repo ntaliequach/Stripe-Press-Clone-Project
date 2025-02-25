@@ -15,7 +15,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+.pnpm-debug.log*Add book data and implement responsive navigation in layout.tsx
+
+- Added book data with titles, authors, colors, and images
+- Implemented responsive navigation with hover and click effects
+- Used framer-motion for animations
+- Included mobile check and resize event listener
+- Applied consistent styling with Tailwind CSS classes
 
 # env files
 .env*
