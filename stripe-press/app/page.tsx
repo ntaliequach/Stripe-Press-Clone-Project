@@ -106,7 +106,6 @@ const books = [
 
 export default function MainPage() {
   const router = useRouter();
-  const pathname = usePathname();
 
   return (
     
@@ -116,7 +115,10 @@ export default function MainPage() {
         <motion.div
           key={index}
           className="w-full h-40 mb-8 cursor-pointer overflow-hidden bg-cover bg-center pt-3 rounded-lg"
-          style={{ backgroundImage: `url(${book.image})` }}
+          style={{
+            backgroundImage: `url(${book.image})`
+        }}
+
           whileHover={{ scale: 1.02 }}
           onClick={() => router.push(`/books/${index}`)} // ✅ Click to go to book page
         >

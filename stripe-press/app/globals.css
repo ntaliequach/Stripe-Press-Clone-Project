@@ -93,7 +93,6 @@ body {
   }
 }
 
-/* Add this to your CSS */
 .hover-area::before {
   content: "";
   position: absolute;
@@ -101,5 +100,15 @@ body {
   bottom: -10px; /* Adjust as needed */
   left: -10px; /* Adjust as needed */
   right: -10px; /* Adjust as needed */
-  z-index: -1; /* Ensure it doesn't block the button */
+ /* Ensure it doesn't block the button */
 }
+/* 
+.book {
+  transform: perspective(1000px) rotateX(15deg) translateZ(10px);
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+}
+
+.book:hover {
+  transform: perspective(1000px) rotateX(0deg) translateZ(20px);
+} */

@@ -108,10 +108,8 @@ const books = [
 export default function MainPage({ children }: { children: React.ReactNode }) {
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
   const [hoveredBook, setHoveredBook] = useState<number | null>(null);
-  const { scrollY } = useScroll();
   const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -119,6 +117,7 @@ export default function MainPage({ children }: { children: React.ReactNode }) {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+  
 
   return (
     <html lang="en">
@@ -151,11 +150,11 @@ export default function MainPage({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Navigation Lines */}
-          <div className="flex flex-col ml-2 group relative hover-area mt-6 z-17">
+          <div className="flex flex-col ml-2 group relative hover-area mt-6">
             {books.map((book, index) => (
               <div
                 key={index}
-                className="top-[1rem] relative flex items-center h-[14px]"
+                className="top-[.7rem] relative flex items-center h-[14px]"
                 onMouseEnter={() => setHoveredBook(index)}
                 onMouseLeave={() => setHoveredBook(null)}
               >
