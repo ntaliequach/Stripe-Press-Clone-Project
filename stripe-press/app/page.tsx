@@ -110,27 +110,21 @@ export default function MainPage() {
 
   return (
     
-    <div className="bg-[#201919] text-white overflow-x-hidden font-times">
-      {/* Conditionally render Back Button */}
-      {pathname !== '/' && (
-        <button
-          className="text-lg text-gray-400 hover:text-white transition-colors mb-4"
-          onClick={() => router.back()}
-        >
-          &larr; Back
-        </button>
-      )}
+    <div className="bg-[#201919] text-white font-times rounded-lg">
+
       {books.map((book, index) => (
         <motion.div
           key={index}
-          className="w-full h-40 mb-8 cursor-pointer overflow-hidden bg-cover bg-center pt-3"
+          className="w-full h-40 mb-8 cursor-pointer overflow-hidden bg-cover bg-center pt-3 rounded-lg"
           style={{ backgroundImage: `url(${book.image})` }}
           whileHover={{ scale: 1.02 }}
           onClick={() => router.push(`/books/${index}`)} // ✅ Click to go to book page
         >
-          <div className="ml-4 bg-black bg-opacity-50 p-4 rounded-lg">
-            <h2 className="text-xl font-bold text-white">{book.title}</h2>
-            <p className="text-md text-gray-300">{book.author}</p>
+          <div className="justify-center">
+            <div className="ml-4 mr-4 mt-5 bg-black bg-opacity-50 p-5 rounded-lg">
+              <h2 className="text-xl font-bold text-white">{book.title}</h2>
+              <p className="text-md text-gray-300">{book.author}</p>
+            </div>
           </div>
         </motion.div>
       ))}

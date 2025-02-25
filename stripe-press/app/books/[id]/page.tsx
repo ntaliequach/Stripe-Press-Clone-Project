@@ -142,14 +142,13 @@ export default function BookPage({ params }: { params: { id: string } }) {
     return books.map((book, index) => (
       <div
         key={index}
-        className="top-[-13rem] relative flex items-center h-[14px]" //height of the whole bar
+        className="top-[-13rem] relative hover-area flex items-center h-[14px] z-17" //height of the whole bar
         onMouseEnter={() => handleMouseEnter(index)}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Increase hover area with a larger container */}
-        <div className="relative hover-area"> {/* Adjust padding/margin as needed */}
+        
           <motion.button
-            className={`h-[3px] transition-all duration-300 ${ //height of the line
+            className={`h-[4px] transition-all duration-300 ${ //height of the line
               selectedBook === index || hoveredBook === index
                 ? "bg-white"
                 : "bg-gray-200 group-hover:bg-gray-200"
@@ -174,7 +173,7 @@ export default function BookPage({ params }: { params: { id: string } }) {
               router.push(`/books/${index}`);
             }}
           />
-        </div>
+
         {hoveredBook === index && (
           <motion.span
             initial={{ opacity: 0, x: 10 }}

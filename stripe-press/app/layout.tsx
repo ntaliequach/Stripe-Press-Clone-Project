@@ -128,15 +128,7 @@ export default function MainPage({ children }: { children: React.ReactNode }) {
           className="fixed top-0 left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50"
           style={{ opacity: 1 }} // Always fully visible
         >
-          {/* Conditionally render Back Button */}
-          {pathname !== '/' && (
-            <button
-              className="text-lg text-gray-400 hover:text-white transition-colors ml-2 mb-4"
-              onClick={() => router.back()}
-            >
-              &larr; Back
-            </button>
-          )}
+
           {/* Logo and Title */}
           <div className="flex items-center space-x-3">
             <svg
@@ -159,16 +151,16 @@ export default function MainPage({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Navigation Lines */}
-          <div className="flex flex-col space-y-2.5 ml-2 group relative mt-6">
+          <div className="flex flex-col ml-2 group relative hover-area mt-6 z-17">
             {books.map((book, index) => (
               <div
                 key={index}
-                className="relative flex items-center"
+                className="top-[1rem] relative flex items-center h-[14px]"
                 onMouseEnter={() => setHoveredBook(index)}
                 onMouseLeave={() => setHoveredBook(null)}
               >
                 <motion.button
-                  className={`h-[5px] transition-all duration-300 ${
+                  className={`h-[4px] transition-all duration-300 ${
                     selectedBook === index || hoveredBook === index
                       ? "bg-white"
                       : "bg-gray-200 group-hover:bg-gray-700"
@@ -179,13 +171,14 @@ export default function MainPage({ children }: { children: React.ReactNode }) {
                         ? hoveredBook === index
                           ? "5rem"
                           : `${5 - Math.abs(hoveredBook - index) * 0.25}rem`
-                        : "4rem",
+                        : "1.2rem",
                     opacity:
                       hoveredBook !== null
                         ? hoveredBook === index
                           ? 1
                           : 0.3 - Math.abs(hoveredBook - index) * 0.02
                         : 0.5,
+                    willChange: "width, opacity"
                   }}
                   onClick={() => {
                     setSelectedBook(index);
@@ -196,6 +189,8 @@ export default function MainPage({ children }: { children: React.ReactNode }) {
                   <motion.span
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 15 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     className="absolute left-24 text-s text-white whitespace-nowrap"
                   >
                     {book.title}
