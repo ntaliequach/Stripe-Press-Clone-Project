@@ -112,3 +112,12 @@ body {
 .book:hover {
   transform: perspective(1000px) rotateX(0deg) translateZ(20px);
 } */
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

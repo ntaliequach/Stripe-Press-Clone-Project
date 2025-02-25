@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { notFound } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState, useMemo, useCallback } from "react";
 import { debounce } from "lodash";
 import Image from "next/image";
@@ -225,10 +225,15 @@ export default function BookPage({ params }: { params: { id: string } }) {
           className="fixed hover-area left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50"
           style={{ bottom: 0.3, opacity: 1 }} // Always fully visible
         >
+
           {/* Logo and Title */}
-          <div className="flex items-center space-x-3">
+          
+          <button
+            className="text-gray-400 hover:text-gray-300 transition-colors "
+            onClick={() => router.push("/")}
+          >
             <svg
-              className="w-6 h-6 text-white"
+              className="w-6 h-6 text-white group-hover:text-gray-300 transition duration-200"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -236,15 +241,17 @@ export default function BookPage({ params }: { params: { id: string } }) {
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
-            <div>
-              <h1 className="text-[20px] tracking-wide whitespace-nowrap">
+            <div className="ml-3 -mt-9">
+              <h1 className="text-[18px]  text-white group-hover:text-gray-300 tracking-wide whitespace-nowrap">
                 Stripe Press
               </h1>
-              <p className="text-[16px] italic tracking-wide whitespace-nowrap">
+              <p className="ml-7 text-[16px]  text-white italic group-hover:text-gray-300 tracking-wide whitespace-nowrap">
                 Ideas for progress
               </p>
             </div>
-          </div>
+          </button>
+
+
 
           {/* Navigation Lines */}
           <div className="flex flex-col ml-2 group relative mt-6">
@@ -252,16 +259,14 @@ export default function BookPage({ params }: { params: { id: string } }) {
           </div>
         </motion.nav>
 
-        <div className="ml-20 mt-19">
-
-
+      <div className="ml-15 -mt-40">
         {/* Book Cover Container */}
-        <div className="relative w-full flex justify-center items-center mb-8">
+        <div className="relative w-full flex justify-center items-center mt-10">
           {/* Overlay Text */}
           
         <motion.div
-          className="absolute inset-0 flex flex-col items-center justify-center z-20 mr-3"
-          style={{ rotateY: -10 }}
+          className="absolute inset-0 flex flex-col items-center justify-center z-20 mr-8"
+          style={{ rotateY: -35, rotateX: -29 }}
         >
           <h1 className="text-white text-xl font-bold">{book.title}</h1>
           <p className="text-white text-lg">{book.author}</p>
@@ -271,15 +276,15 @@ export default function BookPage({ params }: { params: { id: string } }) {
           <Image
             src={book.cover}
             alt={`${book.title} cover`}
-            width={555}
-            height={350}
+            width={450}
+            height={200}
             className="z-0"
-            style={{ filter: 'brightness(55%)' }}
+            style={{ filter: 'brightness(65%)', rotate: '4deg'}}
           />
         </div>
 
         {/* Book Description */}
-        <p className="text-gray-100 text-md">{book.description}</p>
+        <p className="text-gray-100 text-md -mt-10">{book.description}</p>
       </div>
 
 

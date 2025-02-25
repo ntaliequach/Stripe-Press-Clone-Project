@@ -129,9 +129,13 @@ export default function MainPage({ children }: { children: React.ReactNode }) {
         >
 
           {/* Logo and Title */}
-          <div className="flex items-center space-x-3">
+          
+          <button
+            className="text-gray-400 hover:text-gray-300 transition-colors "
+            onClick={() => router.push("/")}
+          >
             <svg
-              className="w-6 h-6 text-white"
+              className="w-6 h-6 text-white hover:text-gray-300 transition duration-200"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -139,15 +143,16 @@ export default function MainPage({ children }: { children: React.ReactNode }) {
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
-            <div>
-              <h1 className="text-[20px] tracking-wide whitespace-nowrap">
+            <div className="ml-3 -mt-9">
+              <h1 className="text-[18px]  text-white hover:text-gray-300 tracking-wide whitespace-nowrap">
                 Stripe Press
               </h1>
-              <p className="text-[16px] italic tracking-wide whitespace-nowrap">
+              <p className="ml-7 text-[16px]  text-white hover:text-gray-300 italic tracking-wide whitespace-nowrap mb-4">
                 Ideas for progress
               </p>
             </div>
-          </div>
+          </button>
+
 
           {/* Navigation Lines */}
           <div className="flex flex-col ml-2 group relative hover-area mt-6">
