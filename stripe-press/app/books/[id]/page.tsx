@@ -219,7 +219,7 @@ export default function BookPage({ params }: { params: { id: string } }) {
 
           {/* Back Button */}
           <button
-            className="text-lg text-gray-400 hover:text-white transition-colors mb-4 ml-40"
+            className="text-lg text-gray-400 hover:text-white transition-colors ml-0 mt-2"
             onClick={handleBackButtonClick}
           >
             &larr; Back
@@ -260,8 +260,12 @@ export default function BookPage({ params }: { params: { id: string } }) {
 
 
             {/* Navigation Lines */}
-            <div className="flex flex-col ml-2 group relative mt-60">
+            <div className="mt-60">
+            <div className="flex flex-col ml-2 group relative mt-60"
+                 style={{ marginTop: "280px" }}
+            >
               {navigationLines}
+            </div>
             </div>
           </motion.nav>
 
