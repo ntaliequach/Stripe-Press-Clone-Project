@@ -140,7 +140,7 @@ export default function BookPage({ params }: { params: { id: string } }) {
   const handleBackButtonClick = () => {
     // router.push("/"); // Use router.push to navigate to the homepage
     router.back(); // Force a refresh of the homepage
-    //setTimeout(() => window.location.reload(), 100);
+    setTimeout(() => window.location.reload(), 100);
     //window.location.href = "/";
   };
 
@@ -219,7 +219,7 @@ export default function BookPage({ params }: { params: { id: string } }) {
 
           {/* Back Button */}
           <button
-            className="text-lg text-gray-400 hover:text-white transition-colors mb-4 absolute"
+            className="text-lg text-gray-400 hover:text-white transition-colors mb-4 ml-40"
             onClick={handleBackButtonClick}
           >
             &larr; Back
@@ -233,13 +233,13 @@ export default function BookPage({ params }: { params: { id: string } }) {
           >
 
             {/* Logo and Title */}
-            
+            <div className="fixed top-0 left-0 w-48 h-screen flex flex-col hover:text-gray-300 justify-between items-start py-8 px-5 z-50">
             <button
               className="text-gray-400 hover:text-gray-300 transition-colors "
-              onClick={() => router.push("/")}
+              onClick={handleBackButtonClick}
             >
               <svg
-                className="w-6 h-6 text-white group-hover:text-gray-300 transition duration-200"
+                className="w-6 h-6 text-white group-hover:text-gray-400 transition duration-200"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -256,18 +256,18 @@ export default function BookPage({ params }: { params: { id: string } }) {
                 </p>
               </div>
             </button>
-
+            </div>
 
 
             {/* Navigation Lines */}
-            <div className="flex flex-col ml-2 group relative mt-6">
+            <div className="flex flex-col ml-2 group relative mt-60">
               {navigationLines}
             </div>
           </motion.nav>
 
-        <div className="ml-15 -mt-40">
+        <div className="ml-15">
           {/* Book Cover Container */}
-          <div className="relative w-full flex justify-center items-center mt-10">
+          <div className="relative w-full flex justify-center items-center">
             {/* Overlay Text */}
             
           <motion.div
