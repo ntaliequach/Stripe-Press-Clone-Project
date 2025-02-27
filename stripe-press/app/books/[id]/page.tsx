@@ -138,9 +138,10 @@ export default function BookPage({ params }: { params: { id: string } }) {
 
   // Function to handle the back button click
   const handleBackButtonClick = () => {
-    router.back(); // Use router.push to navigate to the homepage
-    // router.refresh(); // Force a refresh of the homepage
-    setTimeout(() => window.location.reload(), 100);
+    // router.push("/"); // Use router.push to navigate to the homepage
+    router.back(); // Force a refresh of the homepage
+    //setTimeout(() => window.location.reload(), 100);
+    //window.location.href = "/";
   };
 
   // Debounced hover handlers to reduce state updates
@@ -210,85 +211,91 @@ export default function BookPage({ params }: { params: { id: string } }) {
   }, [selectedBook, hoveredBook, router, handleMouseEnter, handleMouseLeave]);
 
   return (
-    <body className="bg-[#201919] text-white overflow-x-hidden font-times">
-      <div className="max-w-4xl mx-auto p-6">
-        {/* Back Button */}
-        <button
-          className="text-lg text-gray-400 hover:text-white transition-colors mb-4"
-          onClick={handleBackButtonClick}
-        >
-          &larr; Back
-        </button>
+    <html lang="en">
+      <body className="bg-[#201919] text-white overflow-x-hidden font-times">
+        
+        <div className="max-w-4xl mx-auto p-6">
+        
 
-        {/* Left Navigation */}
-        <motion.nav
-          className="fixed hover-area left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50"
-          style={{ bottom: 0.3, opacity: 1 }} // Always fully visible
-        >
-
-          {/* Logo and Title */}
-          
+          {/* Back Button */}
           <button
-            className="text-gray-400 hover:text-gray-300 transition-colors "
-            onClick={() => router.push("/")}
+            className="text-lg text-gray-400 hover:text-white transition-colors mb-4 absolute"
+            onClick={handleBackButtonClick}
           >
-            <svg
-              className="w-6 h-6 text-white group-hover:text-gray-300 transition duration-200"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-            <div className="ml-3 -mt-9">
-              <h1 className="text-[18px]  text-white group-hover:text-gray-300 tracking-wide whitespace-nowrap">
-                Stripe Press
-              </h1>
-              <p className="ml-7 text-[16px]  text-white italic group-hover:text-gray-300 tracking-wide whitespace-nowrap">
-                Ideas for progress
-              </p>
-            </div>
+            &larr; Back
           </button>
 
 
+          {/* Left Navigation */}
+          <motion.nav
+            className="fixed hover-area left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50"
+            style={{ bottom: 0.3, opacity: 1 }} // Always fully visible
+          >
 
-          {/* Navigation Lines */}
-          <div className="flex flex-col ml-2 group relative mt-6">
-            {navigationLines}
+            {/* Logo and Title */}
+            
+            <button
+              className="text-gray-400 hover:text-gray-300 transition-colors "
+              onClick={() => router.push("/")}
+            >
+              <svg
+                className="w-6 h-6 text-white group-hover:text-gray-300 transition duration-200"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+              <div className="ml-3 -mt-9">
+                <h1 className="text-[18px]  text-white group-hover:text-gray-300 tracking-wide whitespace-nowrap">
+                  Stripe Press
+                </h1>
+                <p className="ml-7 text-[16px]  text-white italic group-hover:text-gray-300 tracking-wide whitespace-nowrap">
+                  Ideas for progress
+                </p>
+              </div>
+            </button>
+
+
+
+            {/* Navigation Lines */}
+            <div className="flex flex-col ml-2 group relative mt-6">
+              {navigationLines}
+            </div>
+          </motion.nav>
+
+        <div className="ml-15 -mt-40">
+          {/* Book Cover Container */}
+          <div className="relative w-full flex justify-center items-center mt-10">
+            {/* Overlay Text */}
+            
+          <motion.div
+            className="absolute inset-0 flex flex-col items-center justify-center z-20 mr-8"
+            style={{ rotateY: -35, rotateX: -29 }}
+          >
+            <h1 className="text-white text-xl font-bold">{book.title}</h1>
+            <p className="text-white text-lg">{book.author}</p>
+          </motion.div>
+
+            {/* Book Cover Image */}
+            <Image
+              src={book.cover}
+              alt={`${book.title} cover`}
+              width={450}
+              height={200}
+              className="z-0"
+              style={{ filter: 'brightness(65%)', rotate: '4deg'}}
+            />
           </div>
-        </motion.nav>
 
-      <div className="ml-15 -mt-40">
-        {/* Book Cover Container */}
-        <div className="relative w-full flex justify-center items-center mt-10">
-          {/* Overlay Text */}
-          
-        <motion.div
-          className="absolute inset-0 flex flex-col items-center justify-center z-20 mr-8"
-          style={{ rotateY: -35, rotateX: -29 }}
-        >
-          <h1 className="text-white text-xl font-bold">{book.title}</h1>
-          <p className="text-white text-lg">{book.author}</p>
-        </motion.div>
-
-          {/* Book Cover Image */}
-          <Image
-            src={book.cover}
-            alt={`${book.title} cover`}
-            width={450}
-            height={200}
-            className="z-0"
-            style={{ filter: 'brightness(65%)', rotate: '4deg'}}
-          />
+          {/* Book Description */}
+          <p className="text-gray-100 text-md -mt-10">{book.description}</p>
         </div>
 
-        {/* Book Description */}
-        <p className="text-gray-100 text-md -mt-10">{book.description}</p>
-      </div>
 
-
-      </div>
-    </body>
+        </div>
+      </body>
+    </html>
   );
 }
