@@ -233,40 +233,40 @@ export default function BookPage({ params }: { params: { id: string } }) {
           >
 
             {/* Logo and Title */}
-            <div className="fixed top-0 left-0 w-48 h-screen flex flex-col hover:text-gray-300 justify-between items-start py-8 px-5 z-50">
-            <button
-              className="text-gray-400 hover:text-gray-300 transition-colors "
-              onClick={handleBackButtonClick}
-            >
-              <svg
-                className="w-6 h-6 text-white group-hover:text-gray-400 transition duration-200"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
+            
+           <div className="fixed top-0 left-0 w-48 h-screen flex flex-col justify-between items-start py-8 px-5 z-50">
+            
+              <button
+                className="text-gray-400 hover:text-gray-300 transition-colors "
+                onClick={handleBackButtonClick}
               >
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-              <div className="ml-3 -mt-9">
-                <h1 className="text-[18px]  text-white group-hover:text-gray-300 tracking-wide whitespace-nowrap">
-                  Stripe Press
-                </h1>
-                <p className="ml-7 text-[16px]  text-white italic group-hover:text-gray-300 tracking-wide whitespace-nowrap">
-                  Ideas for progress
-                </p>
+                <svg
+                  className="w-6 h-6 text-white group-hover:text-gray-400 transition duration-200"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                <div className="ml-3 -mt-9">
+                  <h1 className="text-[18px]  text-white group-hover:text-gray-300 tracking-wide whitespace-nowrap">
+                    Stripe Press
+                  </h1>
+                  <p className="ml-7 text-[16px]  text-white italic group-hover:text-gray-300 tracking-wide whitespace-nowrap">
+                    Ideas for progress
+                  </p>
+                </div>
+              </button>
+              
+              {/* Navigation Lines */}
+              <div className="flex flex-col ml-2 group relative"
+                  style={{ marginTop: "0px" }}
+              >
+                {navigationLines}
               </div>
-            </button>
-            </div>
-
-
-            {/* Navigation Lines */}
-            <div className="mt-60">
-            <div className="flex flex-col ml-2 group relative mt-60"
-                 style={{ marginTop: "280px" }}
-            >
-              {navigationLines}
-            </div>
-            </div>
+           
+           </div> 
           </motion.nav>
 
         <div className="ml-15">
