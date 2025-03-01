@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import type React from "react";
@@ -10,6 +10,14 @@ import { books } from "@/app/books";
 
 export default function MainPage() {
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Filter books based on search input
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    book.author.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
 
   return (
     <motion.div
@@ -19,13 +27,22 @@ export default function MainPage() {
     transition={{ duration: 0.5, ease: "easeInOut" }}
     className="bg-[#201919] text-white font-times rounded-lg"
     >
+      {/* Search Bar */}
+      <input
+        type="text"
+        placeholder="Search books..."
+        className="w-full p-2 mb-4 bg-gray-200 text-black rounded-lg ml-[-60px]"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+
       {/* <div className="bg-[#201919] text-white font-times rounded-lg"> */}
 
-      {books.map((book, index) => (
+      {filteredBooks.map((book, index) => (
         <motion.div
           key={index}
           onClick={() => router.push(`/books/${index}`)}
-          className="relative inline-block"
+          className="relative inline-block cursor-pointer"
           style={{
             width: "750px",    // container width
             height: "350px",   // container height
@@ -50,8 +67,9 @@ export default function MainPage() {
                     height: "390px", // adjust as needed
                     width: "800px",  // adjust as needed
                     filter: "brightness(0.5)",
-                
                   }}
+                  loading="lazy" // Lazy loading enabled
+
                 />
               
 
