@@ -260,12 +260,13 @@ export default function BookPage({ params }: { params: { id: string } }) {
               </button>
               
               {/* Navigation Lines */}
+          
               <div className="flex flex-col ml-2 group relative"
-                  style={{ marginTop: "0px" }}
+                  style={{ marginBottom: "165px" }}
               >
                 {navigationLines}
               </div>
-           
+             
            </div> 
           </motion.nav>
 

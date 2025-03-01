@@ -1,33 +1,77 @@
-# Stripe-Press-Clone-Project
+# Stripe Press Clone
 
-## Getting Started
+This project is a clone of the Stripe Press website built with Next.js.
 
-Follow these steps to set up and run the project:
+## Prerequisites
 
-### Prerequisites
+- **Node.js** (v20.18.1 or later recommended)
+- **npm** (comes with Node.js)
 
-- Node.js (version 14.x or later)
-- npm (version 6.x or later)
+## Setup Instructions
 
-### Installation
+**Navigate to the Project Directory**
 
-1. **Clone the repository**:
-    ```sh
-    git clone https://github.com/your-username/Stripe-Press-Clone-Project.git
-    cd Stripe-Press-Clone-Project/stripe-press
-    ```
+   Open your terminal and change into the project’s directory:
 
-2. **Install dependencies**:
-    ```sh
-    npm install --legacy-peer-deps
-    ```
+   ```bash
+   cd stripe-press/
+   ```
 
-3. **Run the development server**:
-    ```sh
-    npm run dev
-    ```
+**Check Your Node Version**
 
-### Running the Project
+   Verify you’re running the correct Node.js version:
 
-After running the development server, open your browser and navigate to:
-http://localhost:3000
+   ```bash
+   node -v
+   ```
+
+   You should see:
+
+   ```
+   v20.18.1
+   ```
+
+**Install Next.js**
+
+   Check the Next.js version using:
+
+   ```bash
+   npx next --version
+   ```
+
+   You'll be prompted to install `next@15.2.0`. Type `y` to proceed. After installation, you should see:
+
+   ```
+   Next.js v15.2.0
+   ```
+
+**Install Dependencies**
+
+   Run the following command to install all required packages:
+
+   ```bash
+   npm install
+   ```
+
+
+**Run the Development Server**
+
+   Start the Next.js development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   Your application will be available at [http://localhost:3000](http://localhost:3000).
+
+## Additional Information
+
+**Funding:** Some packages are looking for funding. To view details, run:
+
+  ```bash
+  npm fund
+  ```
+
+**Vulnerabilities:** No vulnerabilities were found during installation.
+
+For more information on Next.js v15.2.0, please refer to the [Next.js Documentation](https://nextjs.org/docs).
